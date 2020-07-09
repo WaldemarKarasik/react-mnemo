@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Alert } from "evergreen-ui";
+import { toaster } from "evergreen-ui";
 
 const Register = (props) => {
   const { register, handleSubmit, watch, errors } = useForm();
@@ -10,6 +11,7 @@ const Register = (props) => {
 
   useEffect(() => {
     if (props.registerError !== null) {
+      toaster.danger(props.registerError);
       setVisible(true);
       setTimeout(() => {
         setVisible(false);
@@ -22,7 +24,7 @@ const Register = (props) => {
     const password = watch("password");
     const repeatPassword = watch("repeatPassword");
     if (password !== repeatPassword) {
-      return alert("You mispelled password");
+      return toaster.danger("Passwords do not match");
     }
     props.register({ email, password });
   };
@@ -66,9 +68,14 @@ const Register = (props) => {
           Register
         </Button>
       </Form>
-      {/* <Alert show={visible} variant="danger">
-        <Alert.Heading>{props.registerError}</Alert.Heading>
-      </Alert> */}
+      {/* {visible && (
+        <Alert
+          appearance="card"
+          intent="danger"
+          title={props.registerError}
+          marginBottom={32}
+        />
+      )} */}
     </div>
   );
 };
