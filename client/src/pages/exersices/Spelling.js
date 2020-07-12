@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { showIntroInit, __spellingGetRandomWord } from '../../redux/thunks/exercises/spelling'
 import {useSelector} from 'react-redux'
 import IntroComponent from '../../components/exercises/spelling/IntroComponent'
+import SpellingInput from './SpellingInput'
 export default function Spelling() {
 
     const dispatch = useDispatch()
@@ -12,9 +13,8 @@ export default function Spelling() {
     const isAuthenticated = useSelector((state)=>state.userData.isAuthenticated)
     const wordList = useSelector((state)=>state.learningList.words)
     const currentWord = useSelector((state) => state.spellingReducer.word)
+    // const definition = useSelector((state) => state.spellingReducer.word.definition ? state.spellingReducer.word.definition : null)
     const [loading, setLoading] = useState(true)
-    const [wordControl, setWordControl] = useState([])
-    const [usersGuess, setUsersGuess] = useState("")
     useEffect(() => {
         if (isAuthenticated && wordList !==0) {
             dispatch({type: "SHOULD_SHOW_INTRO"})
@@ -26,34 +26,7 @@ export default function Spelling() {
             setLoading(false)
         }
     },[isNew, isAuthenticated, wordList])
-    useEffect(() => {
-        if (Object.keys(currentWord).length ===0) {
-            return;
-        }
-        else {
-             setWordControl(currentWord.name.split(""))
-             
-        }
-    },[currentWord])
-    const onUsersGuess = (e) => {
-        // for (let key in wordControl) {
-        //     if (e.target.value === wordControl[key]) {
-        //         alert('hello')
-        //     }
-        // }
-        for (let i=0; i < wordControl.length;) {
-            if (wordControl[i] === e.target.value) {
-                
-                setUsersGuess(e.target.value)
-               
-                console.log('setting users guess')
-                i++
-            } else {
-                console.log(wordControl[i], e.target.value)
-                return ;
-            }
-        }
-    }
+    
     if (!isAuthenticated) {
         return <Pane>
             <Heading>You do not have any words in your learning list</Heading>
@@ -73,9 +46,9 @@ export default function Spelling() {
             return (<div>Loading...</div>)
            
         else{
-            
-            return (<Pane height='100%'>
-            <TextInput value={usersGuess} onChange={(e) => onUsersGuess(e)} placeholder="Type here..." />
+            return (<Pane display="flex" height='100%'>
+            <SpellingInput currentWord={currentWord} />
+            <Heading>{currentWord.defintion ? currentWord.defintion : 'this word does not have definition yet'}</Heading>
         </Pane>)
 
         }

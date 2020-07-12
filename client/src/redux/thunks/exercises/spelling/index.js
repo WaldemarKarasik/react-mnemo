@@ -29,4 +29,5 @@ export const __spellingGetRandomWord = () => async dispatch => {
         }
     })
     dispatch({type: "__SPELLING_WORD_FETCHED", payload: res.data})
+    return {loading: false}
 }
