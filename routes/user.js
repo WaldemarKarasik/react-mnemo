@@ -93,6 +93,7 @@ router.post("/login/:data?", justRegistered, async (req, res) => {
       "komsomolradio",
       { expiresIn: "1hr" }
     );
+    console.log(userExists)
     res.json({
       message: { msgBody: "Logged in", msgError: false },
       token,
@@ -103,6 +104,7 @@ router.post("/login/:data?", justRegistered, async (req, res) => {
           : undefined,
         email: userExists.email,
         words: userExists.words,
+        new: userExists.new
       },
     });
   } catch (err) {
@@ -144,6 +146,7 @@ router.post("/", auth, async (req, res) => {
         id: req.user.id,
         displayName: req.user.displayName ? req.user.displayName : undefined,
         words: user.words,
+        new: user.new
       });
     });
   // res.json({
@@ -178,5 +181,16 @@ router.post("/learn-word", auth, async (req, res) => {
     res.json(e.message);
   }
 });
+
+router.post('/intro-viewed', auth, async (req,res) => {
+
+  const user = await User.findOneAndUpdate({email: req.user.email}, {new: false}, {new: true})
+
+  await user.save((err, doc) => {
+    if (err)
+      return console.log(err)
+    return res.status(200).json(doc)
+  })
+})
 
 module.exports = router;

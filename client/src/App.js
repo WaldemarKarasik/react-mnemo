@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import SingleWord from "./pages/SingleWord";
 import PrivateRoute from "./hocs/PrivateRoute";
 import Exercises from "./pages/Exercises";
+import Spelling from './pages/exersices/Spelling'
 
 // const App = ({ user, isAuthenticated, getUser, getWords }) => {
 //   useEffect(() => {
@@ -56,7 +57,7 @@ class App extends React.Component {
     this.props.getWords();
   }
   render() {
-    if (this.props.user !== undefined || this.props.user === null) {
+    if (this.props.loading !== true) {
       return (
         <>
           <Router>
@@ -77,6 +78,7 @@ class App extends React.Component {
                 component={Exercises}
                 path="/exercises"
               />
+              <UnprivateRoute path="/spelling" component={Spelling}/>
               <Route path="/word/:name/" exact component={SingleWord} />
               <Route path="/register" component={GuestOnly(Register)} />
               <Route path="/login" component={GuestOnly(Login)} />
@@ -102,6 +104,8 @@ const mapStateToProps = (state) => {
   return {
     user: getUserSelector(state),
     isAuthenticated: state.userData.isAuthenticated,
+    wordList: state.learningList.words,
+    loading: state.userData.loading
   };
 };
 const mapDispatchToProps = (dispatch) => {

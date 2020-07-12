@@ -7,6 +7,7 @@ import RootSaga from "./sagas/RootSaga";
 import WordsReducer from "./reducers/WordsReducer";
 import { compose } from "redux";
 import { LearningListReducer } from "./reducers/LearningListReducer";
+import { SpellingExerciseReducer } from "./reducers/SpellingExerciseReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   userData: UserReducer,
   words: WordsReducer,
   learningList: LearningListReducer,
+  spellingReducer: SpellingExerciseReducer
 });
 
 // export const store = createStore(
@@ -30,7 +32,7 @@ const composeEnhancers =
   compose;
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers(applyMiddleware(sagaMiddleware, thunk))
 );
 
 sagaMiddleware.run(RootSaga);

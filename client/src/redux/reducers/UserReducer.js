@@ -5,6 +5,7 @@ const initialState = {
   loginData: undefined,
   loginError: null,
   registerError: null,
+  loading: true
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -15,6 +16,7 @@ export const UserReducer = (state = initialState, action) => {
         user: null,
         userLoading: false,
         isAuthenticated: false,
+        loading: false
       };
     }
     case "SET_USER": {
@@ -23,6 +25,7 @@ export const UserReducer = (state = initialState, action) => {
         user: action.payload,
         isAuthenticated: true,
         loginData: undefined,
+        loading: false
       };
     }
     case "SET_LOGIN_DATA": {

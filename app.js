@@ -23,3 +23,4 @@ mongoose.connect(
 
 app.use("/users", require("./routes/user"));
 app.use("/words", require("./routes/word"));
+app.use('/exercises/spelling', require('./routes/exercises/spelling'))

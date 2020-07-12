@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { selectWord } from "../redux/selectors/wordSelectors";
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import Axios from "axios";
+import {Pane} from 'evergreen-ui'
 
 function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   const history = useHistory();
@@ -39,7 +40,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
         return (
           <button
             onClick={(e) => onLearnClickHandler(e)}
-            className="btn btn-success"
+            className="btn btn-success btn-sm"
           >
             Learn
           </button>
@@ -53,7 +54,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
       return (
         <button
           onClick={(e) => onLearnClickHandler(e)}
-          className="btn btn-success"
+          className="btn btn-success btn-sm"
         >
           Learn
         </button>
@@ -90,7 +91,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
     return (
       <button
         onClick={(e) => onLearnClickHandler(e)}
-        className="btn btn-success"
+        className="btn btn-success btn-sm"
       >
         Learn
       </button>
@@ -98,10 +99,11 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   };
   if (word) {
     return (
-      <div
+      <Pane
         style={{ width: "100%" }}
         className="d-flex flex-column align-items-center text-center"
       >
+        <Pane elevation={4} marginTop={140}>
         <div>{word.name}</div>
         <div>{word.type}</div>
         <div>
@@ -110,7 +112,8 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
           })}
         </div>
         {isAuthenticated ? authButtons() : unauthButtons()}
-      </div>
+        </Pane>
+      </Pane>
     );
   } else {
     return <div>Loading</div>;
