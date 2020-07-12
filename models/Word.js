@@ -5,7 +5,7 @@ const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 const WordSchema = new mongoose.Schema({
   name: { type: String, required: true },
   type: {type: String, required: true},
-  definiton: {type: String, required: true},
+  definition: {type: String, required: true},
   examples: [{type: String, required: true}]
 }
 );
