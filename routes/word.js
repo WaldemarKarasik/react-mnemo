@@ -2,8 +2,8 @@ const router = require("express").Router();
 const Word = require("../models/Word");
 
 router.post("/", async (req, res) => {
-  const { name, type, examples } = req.body;
-  const newWord = new Word({ name, type, examples });
+  const { name, type, examples, definition } = req.body;
+  const newWord = new Word({ name, type, examples, definition });
   const savedWord = await newWord.save();
   if (savedWord) {
     return res.status(201).json(savedWord);

@@ -9,7 +9,7 @@ router.post('/random-word', auth, (req,res) => {
         const random = Math.floor(Math.random() * count)
         Word.findOne().skip(random).exec((err, randomWord) => {
             const name = randomWord.name.charAt(0).toLowerCase() + randomWord.name.slice(1)
-            res.json({name, examples: randomWord.examples})
+            res.json({name, examples: randomWord.examples, defintion: randomWord.definition})
         })
     })
 })
