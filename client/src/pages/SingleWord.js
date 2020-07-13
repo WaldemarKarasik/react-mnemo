@@ -2,10 +2,11 @@ import React, {useRef} from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { selectWord } from "../redux/selectors/wordSelectors";
-import { Row, Col, Button, Badge } from "react-bootstrap";
+import { Row, Col, Button, Badge, Spinner } from "react-bootstrap";
 import Axios from "axios";
 import {Pane} from 'evergreen-ui'
 import {Box, Card, Text, Heading, Drop, Paragraph} from 'grommet'
+import { addToLearn } from "../redux/api/userApi";
 
 function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   const history = useHistory();
@@ -19,13 +20,16 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
     }
     getWord(name);
   }, []);
-  const onLearnClickHandler = (e) => {
+  const onLearnClickHandler = async (e) => {
     if (!isAuthenticated) {
       e.preventDefault();
       alert("Login first");
       return history.push("/login");
     }
-    addToLearnList(name);
+    const res = await addToLearnList(name)
+
+
+   
   };
   const authButtons = () => {
     let words;
@@ -61,32 +65,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
         </button>
       );
     }
-    // if (words !== null && !words.some((elem) => elem._id === word._id)) {
-    //   console.log("here");
-    // return (
-    //   <button
-    //     onClick={(e) => onLearnClickHandler(e)}
-    //     className="btn btn-success"
-    //   >
-    //     Learn
-    //   </button>
-    // );
-    // } else {
-    //   if (userWordList !== null) {
-    //     return (
-    //       <Badge variant="primary">You are already learning this word</Badge>
-    //     );
-    //   } else {
-    //     return (
-    //       <button
-    //         onClick={(e) => onLearnClickHandler(e)}
-    //         className="btn btn-success"
-    //       >
-    //         Learn
-    //       </button>
-    //     );
-    //   }
-    // }
+
   };
   const unauthButtons = () => {
     return (
@@ -117,6 +96,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
           })}
         </div>
         {isAuthenticated ? authButtons() : unauthButtons()}
+        {}
         </Box>
       </Box>
     );

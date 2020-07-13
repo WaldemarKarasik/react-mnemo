@@ -17,7 +17,8 @@ function* addToLearnWorker(action) {
   if (addWordResponse.msg && addWordResponse.msg.msgError) {
     alert("you already learn this word");
   } else {
-    yield put({ type: "ADD_TO_LEARN_SUCCESS", payload: addWordResponse });
+    const res = yield put({ type: "ADD_TO_LEARN_SUCCESS", payload: addWordResponse });
+    return res
   }
 }
 
