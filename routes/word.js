@@ -62,9 +62,16 @@ router.post("/details/", (req, res) => {
   });
 });
 
-router.delete("/",admin,(req,res) => {
-  console.log(req.user)
-  return res.json(req.user)
+router.delete("/",admin, async (req,res) => {
+  const {name} = req.query
+  const deletedWord = await Word.findOneAndDelete({name})
+  if (deletedWord) {
+    const myAggregate = Word.aggregate();
+  Word.aggregatePaginate(myAggregate, { page: req.query.page || 1, limit: 5 })
+    .then(function (result) {
+      return res.status(200).json(result);
+    })
+  }
 
 })
 

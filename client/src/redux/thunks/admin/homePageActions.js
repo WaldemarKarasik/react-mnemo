@@ -7,5 +7,6 @@ export const deleteWord = (name) => async dispatch => {
             "x-auth-token": token
         }
     }).then(res=>res.json())
-    console.log(res) 
+    console.log(res)
+    dispatch({type: "WORDS_LOADING_SUCCESS", payload: res})
 }
