@@ -13,8 +13,6 @@ export default function Exercises() {
     <Box justify="center" height="100%" align="center">
     <Box gap="medium" margin={{top: '5rem'}}direction="row">
       <Button color="neutral-3" primary size="medium" label="Spelling" onClick={e=>onRepeatExerciseClickHandler(e)} />
-      <Button color="neutral-3" primary size="medium" label="Spelling" onClick={e=>onRepeatExerciseClickHandler(e)} />
-
     </Box>
     </Box>
   )
