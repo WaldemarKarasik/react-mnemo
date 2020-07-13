@@ -17,7 +17,7 @@ export default function HomePageAdminOptions({name}) {
     return (
         <Box direction="row">
             {!deletingPending ? (
-            <Button onClick={(e) => onDeleteButtonHandler(e)} icon={<Trash />}/>
+            <Button hoverIndicator={true} onClick={(e) => onDeleteButtonHandler(e)} icon={<Trash/>}/>
             )
             : <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>

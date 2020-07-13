@@ -5,7 +5,7 @@ import { selectWord } from "../redux/selectors/wordSelectors";
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import Axios from "axios";
 import {Pane} from 'evergreen-ui'
-import {Box, Card, Text, Heading, Drop} from 'grommet'
+import {Box, Card, Text, Heading, Drop, Paragraph} from 'grommet'
 
 function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   const history = useHistory();
@@ -113,7 +113,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
         
         <div>
           {word.examples.map((example, index) => {
-            return <p key={index}>{example}</p>;
+            return <Paragraph key={index}>{example}</Paragraph>;
           })}
         </div>
         {isAuthenticated ? authButtons() : unauthButtons()}
