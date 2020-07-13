@@ -27,7 +27,8 @@ const justRegistered = async (req,res,next) => {
                        ? userExists.displayName
                        : undefined,
                    email: userExists.email,
-                   new: userExists.new
+                   new: userExists.new,
+                   admin: userExists.admin
                },
            });
            res.end()

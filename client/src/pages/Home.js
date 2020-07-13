@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Col, Row } from "react-bootstrap";
 import {Box, List, Text, Anchor} from 'grommet'
 import { Link } from "react-router-dom";
+import HomePageAdminOptions from "../components/auth/HomePageAdminOptions";
 
 class Home extends React.Component {
   constructor(props) {
@@ -15,17 +16,12 @@ class Home extends React.Component {
       return <div>Loading words...</div>;
     } else {
       return (
-        <Box style={{ width: "100vh" }}>
+        <Box direction="row" style={{ width: "100vh" }}>
+          <Box width="100%">
           <List data={this.props.words[0].docs}
-           primaryKey={(word) => <Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>}
+           primaryKey={(word) => <><Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>{this.props.user !== null && this.props.user.admin && (<HomePageAdminOptions name={word.name}/>)}</>}
           />
-          {/* {this.props.words[0].docs.map((word) => {
-            return (
-              <Box>
-                <Link to={`/word/${word.name}`}>{word.name}</Link>
-              </Box>
-            );
-          })} */}
+          </Box>
         </Box>
       );
     }
@@ -36,6 +32,7 @@ const mapStateToProps = (state) => {
   return {
     words: state.words.words,
     isLoading: state.words.isLoading,
+    user: state.userData.user
   };
 };
 

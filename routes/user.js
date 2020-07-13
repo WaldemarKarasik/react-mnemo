@@ -103,7 +103,8 @@ router.post("/login/:data?", justRegistered, async (req, res) => {
           : undefined,
         email: userExists.email,
         words: userExists.words,
-        new: userExists.new
+        new: userExists.new,
+        admin: userExists.admin
       },
     });
   } catch (err) {
@@ -145,7 +146,8 @@ router.post("/", auth, async (req, res) => {
         id: req.user.id,
         displayName: req.user.displayName ? req.user.displayName : undefined,
         words: user.words,
-        new: user.new
+        new: user.new,
+        admin: user.admin
       });
     });
   // res.json({

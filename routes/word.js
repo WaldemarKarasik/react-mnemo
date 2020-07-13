@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Word = require("../models/Word");
-
+const admin = require('../middleware/admin')
 router.post("/", async (req, res) => {
   const { name, type, examples, definition } = req.body;
   const newWord = new Word({ name, type, examples, definition });
@@ -61,5 +61,11 @@ router.post("/details/", (req, res) => {
     return res.json(word);
   });
 });
+
+router.delete("/",admin,(req,res) => {
+  console.log(req.user)
+  return res.json(req.user)
+
+})
 
 module.exports = router;
