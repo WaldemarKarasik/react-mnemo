@@ -2,11 +2,9 @@ import React from "react";
 import {
   Navbar as NavBar,
   Form,
-  FormControl,
-  
-  Button
+  FormControl
 } from "react-bootstrap";
-import {Nav, Anchor, Header, Box, Avatar} from 'grommet'
+import {Nav, Anchor, Header, Box, Avatar, Button} from 'grommet'
 import { Link, BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {Icons} from 'grommet'
@@ -16,8 +14,8 @@ function Navbar({ user, logout, isAuthenticated }) {
   const authenticatedLinks = () => {
     return (
       <>
-      <Anchor as={Link} to="/exercises" label="Exercises" margin={{right: '10px'}}/>
-        <Anchor onClick={() => dispatch({ type: "LOGOUT_USER" })} label="Logout" />
+      <Anchor as={Link} to="/exercises" label="Exercises" margin={{right: '10px', top: '5px'}}/>
+        <Button color="status-critical" onClick={() => dispatch({ type: "LOGOUT_USER" })} label="Logout" />
         
       </>
     );
