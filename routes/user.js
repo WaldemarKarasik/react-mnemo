@@ -93,7 +93,6 @@ router.post("/login/:data?", justRegistered, async (req, res) => {
       "komsomolradio",
       { expiresIn: "1hr" }
     );
-    console.log(userExists)
     res.json({
       message: { msgBody: "Logged in", msgError: false },
       token,
@@ -192,5 +191,20 @@ router.post('/intro-viewed', auth, async (req,res) => {
     return res.status(200).json(doc)
   })
 })
+
+router.post('/delete-word-from-list', auth, async (req,res) => {
+  const {_id} = req.body
+
+  await User.findOne({_id: req.user._id}).populate("words").exec(async (err, user) => {
+    user.words.pull(_id)
+    user.save((err, doc) => {
+      if (err) {
+        return res.json({msg: {msgBody: "Fail", msgError: true}})
+      }
+      return res.json({msg: {msgBody: "Success", msgError: false}, user: doc})
+    })
+  })
+})
+
 
 module.exports = router;

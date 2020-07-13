@@ -5,9 +5,13 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Grommet } from 'grommet';
+
 ReactDOM.render(
   <Provider store={store}>
+    <Grommet>
     <App />
+    </Grommet>
   </Provider>,
   document.getElementById("root")
 );

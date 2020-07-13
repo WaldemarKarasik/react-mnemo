@@ -5,6 +5,9 @@ import { showIntroInit, __spellingGetRandomWord } from '../../redux/thunks/exerc
 import {useSelector} from 'react-redux'
 import IntroComponent from '../../components/exercises/spelling/IntroComponent'
 import SpellingInput from './SpellingInput'
+import {Box, Text} from 'grommet'
+import {Redirect, useHistory} from 'react-router-dom'
+import SpellingRemoveWordButton from './SpellingRemoveWordButton'
 export default function Spelling() {
 
     const dispatch = useDispatch()
@@ -13,6 +16,7 @@ export default function Spelling() {
     const isAuthenticated = useSelector((state)=>state.userData.isAuthenticated)
     const wordList = useSelector((state)=>state.learningList.words)
     const currentWord = useSelector((state) => state.spellingReducer.word)
+    const history = useHistory()
     // const definition = useSelector((state) => state.spellingReducer.word.definition ? state.spellingReducer.word.definition : null)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -21,9 +25,13 @@ export default function Spelling() {
         }
     },[])
     useEffect(() => {
-        if(!isNew && isAuthenticated && wordList.length > 0) {
-            dispatch(__spellingGetRandomWord())
+        async function getRandomWord() {
+            const randomWord = await dispatch(__spellingGetRandomWord())
             setLoading(false)
+        }
+        if(!isNew && isAuthenticated && wordList.length > 0) {
+            getRandomWord()
+            
         }
     },[isNew, isAuthenticated, wordList])
     
@@ -32,7 +40,7 @@ export default function Spelling() {
             <Heading>You do not have any words in your learning list</Heading>
         </Pane>
     }
-    if (wordList.length === 0)  {
+    if (wordList.length === 0 || currentWord == null)  {
         return (
             <Pane>
                 <Heading>You do not have any words in your learning list</Heading>
@@ -46,10 +54,18 @@ export default function Spelling() {
             return (<div>Loading...</div>)
            
         else{
-            return (<Pane display="flex" height='100%'>
+            console.log(currentWord)
+            return (<Box display="flex" height='100%'>
             <SpellingInput currentWord={currentWord} />
-            <Heading>{currentWord.defintion ? currentWord.defintion : 'this word does not have definition yet'}</Heading>
-        </Pane>)
+            <Box direction="row">
+                <Box width="12rem">
+                    <Text >{currentWord.defintion ? currentWord.defintion : 'this word does not have definition yet'}</Text>
+                </Box>
+                <Box>
+                    <SpellingRemoveWordButton _id={currentWord._id}/>
+                </Box>
+            </Box>
+        </Box>)
 
         }
     }

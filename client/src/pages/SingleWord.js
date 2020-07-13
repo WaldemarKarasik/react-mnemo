@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useRef} from "react";
 import { connect, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { selectWord } from "../redux/selectors/wordSelectors";
 import { Row, Col, Button, Badge } from "react-bootstrap";
 import Axios from "axios";
 import {Pane} from 'evergreen-ui'
+import {Box, Card, Text, Heading, Drop} from 'grommet'
 
 function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   const history = useHistory();
@@ -47,7 +48,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
         );
       } else {
         return (
-          <Badge variant="primary">You are already learning this word</Badge>
+          <Badge variant="warning">You are already learning this word</Badge>
         );
       }
     } else {
@@ -99,21 +100,25 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   };
   if (word) {
     return (
-      <Pane
-        style={{ width: "100%" }}
-        className="d-flex flex-column align-items-center text-center"
-      >
-        <Pane elevation={4} marginTop={140}>
-        <div>{word.name}</div>
-        <div>{word.type}</div>
+      <Box
+        
+       >
+        <Box align="center">
+        <Box align="center" direction="row">
+          <Heading>{word.name}</Heading>
+          {'-'}
+          <Badge variant="info">{word.type}</Badge>
+        </Box>
+        
+        
         <div>
           {word.examples.map((example, index) => {
             return <p key={index}>{example}</p>;
           })}
         </div>
         {isAuthenticated ? authButtons() : unauthButtons()}
-        </Pane>
-      </Pane>
+        </Box>
+      </Box>
     );
   } else {
     return <div>Loading</div>;

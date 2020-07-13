@@ -4,7 +4,6 @@ const User = require("../models/User");
 const auth = async (req, res, next) => {
   try {
     const token = req.get("x-auth-token");
-    console.log(token)
     if (!token) {
       return res
         .status(401)

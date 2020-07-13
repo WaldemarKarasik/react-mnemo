@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
+var random = require('mongoose-simple-random');
+
 
 
 const WordSchema = new mongoose.Schema({
@@ -11,5 +13,6 @@ const WordSchema = new mongoose.Schema({
 );
 
 WordSchema.plugin(aggregatePaginate)
+WordSchema.plugin(random)
 
 module.exports = mongoose.model("Word", WordSchema);

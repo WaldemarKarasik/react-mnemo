@@ -1,5 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {TextInput, Pane} from 'evergreen-ui'
+// import {TextInput} from 'evergreen-ui'
+import {TextInput, Text, Drop, Keyboard} from 'grommet'
+
+import {Box} from 'grommet'
 import { useDispatch } from 'react-redux'
 import { __spellingGetRandomWord } from '../../redux/thunks/exercises/spelling'
 
@@ -8,6 +11,7 @@ export default function SpellingInput({currentWord}) {
     const [wordControl, setWordControl] = useState([])
     const [inputValue, setInputValue] = useState('')
     const [shouldHint, setShouldHint] = useState(false)
+    const ref = React.useRef()
     const dispatch = useDispatch()
     // const [tried, setTried] = useState(false)
     const onInputChange = (e) => {
@@ -19,19 +23,17 @@ export default function SpellingInput({currentWord}) {
             setShouldHint(true)
           }
     }
-    const onKeyDownHandler = async (e) => {
-        if(e.key=="Backspace") {
-            setInputValue('')
-        }
+    const onEnter = async (e) => {
+        // if(e.key=="Backspace") {
+        //     setInputValue('')
+        // }
   
-        if(e.key=="Enter") {
             if (e.target.value == wordControl.join('')) {
                 const {loading} = await dispatch(__spellingGetRandomWord())
                 if(!loading) {
                     setInputValue('')
                 }
-            } 
-        }
+            }
         
 
     }
@@ -46,9 +48,13 @@ export default function SpellingInput({currentWord}) {
         }
     },[currentWord])
     return (
-        <Pane>
-        {shouldHint && (<p>{wordControl}</p>)}
-        <TextInput value={inputValue} onKeyDown={onKeyDownHandler} onChange={(e) => onInputChange(e)} placeholder="Type here..." />
-        </Pane>
+        <Box>
+        <Drop align={{ top: "bottom" }} target={ref.current}  style={{visibility: shouldHint ? 'visible' : 'hidden'}}>
+        <Text margin={{vertical: '5px'}} color="dark-4" size="large">{wordControl}</Text>
+        </Drop>
+        <Keyboard onBackspace={() => {setInputValue('')}} onEnter={onEnter}>
+        <TextInput ref={ref} value={inputValue} onChange={(e) => onInputChange(e)} placeholder="Type here..." />
+        </Keyboard>
+        </Box>
     )
 }

@@ -24,6 +24,12 @@ export const SpellingExerciseReducer = (state=intitialState, action) => {
                 word: action.payload
             }
         }
+        case "__SPELLING_WORDS_EMPTY": {
+            return {
+                ...state,
+                word: null
+            }
+        }
         default: 
             return state
     }

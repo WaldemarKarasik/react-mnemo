@@ -1,17 +1,21 @@
 import React from "react";
-import {Pane, Heading, Button, Paragraph} from 'evergreen-ui'
+import {Pane, Heading, Paragraph} from 'evergreen-ui'
 import {useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import {Box, Button} from 'grommet'
 
 export default function Exercises() {
   const history = useHistory()
   const onRepeatExerciseClickHandler = (e) => {
     history.push('spelling')
   }
-  return ( <Pane display="flex" height={'100vh'} justifyContent="center">
-    <Pane marginTop={140}>
-      <Button onClick={e=>onRepeatExerciseClickHandler(e)} appearance="primary" intent="success"><Paragraph>Spelling</Paragraph></Button>
-      <Button marginLeft={3} appearance="primary" intent="success"><Paragraph>Repeat</Paragraph></Button>
-    </Pane>
-  </Pane>)
+  return (
+    <Box justify="center" height="100%" align="center">
+    <Box gap="medium" margin={{top: '5rem'}}direction="row">
+      <Button color="neutral-3" primary size="medium" label="Spelling" onClick={e=>onRepeatExerciseClickHandler(e)} />
+      <Button color="neutral-3" primary size="medium" label="Spelling" onClick={e=>onRepeatExerciseClickHandler(e)} />
+
+    </Box>
+    </Box>
+  )
 }
