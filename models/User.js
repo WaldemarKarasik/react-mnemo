@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true, min: 6 },
   displayName: { type: String },
   words: [{ type: mongoose.Schema.Types.ObjectId, ref: "Word" }],
-  new: {type: Boolean, default: true, required: true}
+  new: {type: Boolean, default: true, required: true},
+  admin: {type: Boolean, default: false, required: true}
 });
 
 module.exports = mongoose.model("User", UserSchema);
