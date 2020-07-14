@@ -16,10 +16,10 @@ class Home extends React.Component {
       return <div>Loading words...</div>;
     } else {
       return (
-        <Box direction="row" style={{ width: "100vh" }}>
-          <Box width="100%">
-          <List data={this.props.words[0].docs}
-           primaryKey={(word) => <><Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>{this.props.user !== null && this.props.user.admin && (<HomePageAdminOptions name={word.name}/>)}</>}
+        <Box direction="row">
+          <Box width="100%" basis="100%">
+          <List direction="column" data={this.props.words[0].docs}
+           primaryKey={(word) => <Box basis="5rem" pad={{vertical: '5px'}}><Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>{this.props.user !== null && this.props.user.admin && (<HomePageAdminOptions name={word.name}/>)}</Box>}
           />
           </Box>
         </Box>
