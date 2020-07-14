@@ -88,13 +88,13 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
           {'-'}
           <Badge variant="info">{word.type}</Badge>
         </Box>
-        
-        <Paragraph textAlign="center">{word.definition}</Paragraph>
+
+        <Paragraph  textAlign="center">{word.definition}</Paragraph>
         
         
         <div>
           {word.examples.map((example, index) => {
-            return <Paragraph key={index}>{example}</Paragraph>;
+            return <Paragraph size="large" key={index}>{example}</Paragraph>;
           })}
         </div>
         {isAuthenticated ? authButtons() : unauthButtons()}
