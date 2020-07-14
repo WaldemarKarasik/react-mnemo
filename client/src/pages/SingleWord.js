@@ -13,6 +13,7 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
   const { name } = useParams();
   const [word, setWord] = React.useState();
   const [isAddingWord, setIsAddingWord] = React.useState(false)
+  console.log(isAddingWord)
   React.useEffect(() => {
     async function getWord(name) {
       const res = await Axios.post(`/words/details/?name=${name}`);
@@ -20,10 +21,13 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
       setWord(data);
     }
     getWord(name);
-    return () => {
-      setIsAddingWord(false)
-    }
+    
   }, []);
+  React.useEffect(() => {
+    if(isAddingWord) {
+      setIsAddingWord(true)
+    }
+  },[isAddingWord])
   const onLearnClickHandler = async (e) => {
     if (!isAuthenticated) {
       e.preventDefault();
@@ -32,7 +36,6 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
     }
     setIsAddingWord(true)
     const res = await addToLearnList(name)
-
 
    
   };
