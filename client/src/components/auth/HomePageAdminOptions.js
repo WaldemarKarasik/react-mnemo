@@ -12,8 +12,10 @@ export default function HomePageAdminOptions({name}) {
         if(window.confirm("Are you sure you want to delete this word?")) {
             setDeletingPending(true)
             const res = await dispatch(deleteWord(name))
+            setDeletingPending(false)
         }
     }
+    
     return (
         <Box direction="row">
             {!deletingPending ? (

@@ -89,6 +89,8 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
           <Badge variant="info">{word.type}</Badge>
         </Box>
         
+        <Paragraph textAlign="center">{word.definition}</Paragraph>
+        
         
         <div>
           {word.examples.map((example, index) => {
