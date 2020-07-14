@@ -16,6 +16,7 @@ import SingleWord from "./pages/SingleWord";
 import PrivateRoute from "./hocs/PrivateRoute";
 import Exercises from "./pages/Exercises";
 import Spelling from './pages/exersices/Spelling'
+import Footer from "./components/Footer";
 
 // const App = ({ user, isAuthenticated, getUser, getWords }) => {
 //   useEffect(() => {
@@ -82,8 +83,11 @@ class App extends React.Component {
               <Route path="/word/:name/" exact component={SingleWord} />
               <Route path="/register" component={GuestOnly(Register)} />
               <Route path="/login" component={GuestOnly(Login)} />
+              
             </Switch>
+           
           </Router>
+          <Footer/>
         </>
       );
     } else {
