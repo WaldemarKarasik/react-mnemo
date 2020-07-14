@@ -27,6 +27,9 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
     if(isAddingWord) {
       setIsAddingWord(true)
     }
+    return () => {
+      setIsAddingWord(false)
+    }
   },[isAddingWord])
   const onLearnClickHandler = async (e) => {
     if (!isAuthenticated) {
@@ -34,8 +37,8 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
       alert("Login first");
       return history.push("/login");
     }
-    setIsAddingWord(true)
     const res = await addToLearnList(name)
+    setIsAddingWord(true)
 
    
   };
@@ -68,6 +71,11 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
         );
       }
     } else {
+      if (isAddingWord) {
+        return (<Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+    </Spinner>)
+      }
       return (
         <button
           onClick={(e) => onLearnClickHandler(e)}
