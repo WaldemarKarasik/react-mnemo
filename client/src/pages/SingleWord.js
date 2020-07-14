@@ -23,14 +23,6 @@ function SingleWord({ isAuthenticated, addToLearnList, userWordList }) {
     getWord(name);
     
   }, []);
-  React.useEffect(() => {
-    if(isAddingWord) {
-      setIsAddingWord(true)
-    }
-    return () => {
-      setIsAddingWord(false)
-    }
-  },[isAddingWord])
   const onLearnClickHandler = async (e) => {
     if (!isAuthenticated) {
       e.preventDefault();
