@@ -19,7 +19,13 @@ class Home extends React.Component {
         <Box direction="row">
           <Box width="100%" basis="100%">
           <List direction="column" data={this.props.words[0].docs}
-           primaryKey={(word) => <Box basis="5rem" pad={{vertical: '5px'}}><Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>{this.props.user !== null && this.props.user.admin && (<HomePageAdminOptions name={word.name}/>)}</Box>}
+           primaryKey={(word) => 
+           <Box basis="5rem" pad={{vertical: '5px'}}>
+             <Box direction="row">
+             <Anchor as={Link} to={`/word/${word.name}`}>{word.name}</Anchor>
+             </Box>
+             {this.props.user !== null && this.props.user.admin && (<HomePageAdminOptions name={word.name}/>)}
+             </Box>}
           />
           </Box>
         </Box>
